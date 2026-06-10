@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)file:///C:/Users/monitor.cumaral/Downloads/tutorial-creditos-adicionales.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial – Créditos Adicionales UNAD ZAO</title>
+<style>
+  :root {
+    --unad-blue: #003087;
+    --unad-gold: #F5A623;
+    --unad-light: #E8F0FB;
+    --step-done: #16A34A;
+    --step-active: #003087;
+    --step-pending: #CBD5E1;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --surface: #FFFFFF;
+    --bg: #F1F5F9;
+    --radius: 14px;
+    --shadow: 0 4px 24px rgba(0,48,135,0.10);
+    --transition: 0.28s cubic-bezier(.4,0,.2,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #002567 10%, #c88100 50%, #ffec03 100%);
+    color: #fff;
+    padding: 28px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 0; right: 0;
+    height: 60px;
+    background: var(--bg);
+    border-radius: 50% 50% 0 0 / 60px 60px 0 0;
+  }
+  .header-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: .6px;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  header h1 { font-size: clamp(20px, 4vw, 28px); font-weight: 700; line-height: 1.25; }
+  header p  { font-size: 14px; opacity: .82; margin-top: 6px; }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 16px 64px;
+  }
+
+  /* ── PROGRESS STEPPER ── */
+  .stepper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 40px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .step-item {
+    display: flex; flex-direction: column; align-items: center;
+    flex: 1; min-width: 80px; max-width: 130px;
+    cursor: pointer;
+  }
+  .step-line-wrap {
+    display: flex; align-items: center; width: 100%;
+  }
+  .step-circle {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+    transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+    background: var(--step-pending); color: #fff;
+    border: 3px solid transparent;
+    position: relative; z-index: 1;
+  }
+  .step-circle.done   { background: var(--step-done); box-shadow: 0 0 0 4px rgba(22,163,74,.18); }
+  .step-circle.active { background: var(--step-active); box-shadow: 0 0 0 5px rgba(0,48,135,.2); }
+  .step-connector {
+    flex: 1; height: 3px;
+    background: var(--step-pending);
+    transition: background var(--transition);
+    margin: 0 -1px;
+  }
+  .step-connector.done { background: var(--step-done); }
+  .step-label {
+    margin-top: 8px;
+    font-size: 11px; font-weight: 600; text-align: center;
+    color: var(--text-secondary);
+    transition: color var(--transition);
+    line-height: 1.3;
+    padding: 0 4px;
+  }
+  .step-item.active .step-label { color: var(--unad-blue); }
+  .step-item.done  .step-label  { color: var(--step-done); }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px;
+    display: none;
+    animation: fadeUp .35s ease;
+  }
+  .card.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 22px;
+  }
+  .card-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--unad-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-icon svg { width: 26px; height: 26px; }
+  .card-step-tag {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .7px; color: var(--unad-blue); opacity: .7;
+  }
+  .card h2 { font-size: 20px; font-weight: 700; line-height: 1.3; color: var(--unad-blue); }
+  .card p  { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); }
+
+  /* Divider */
+  .divider { border: none; border-top: 1.5px solid #E2E8F0; margin: 20px 0; }
+
+  /* Highlight box */
+  .highlight {
+    border-left: 4px solid var(--unad-blue);
+    background: var(--unad-light);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 14px; color: var(--text-primary);
+    margin: 16px 0;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .highlight.warning {
+    border-left-color: var(--unad-gold);
+    background: #FFFBEB;
+  }
+  .highlight.danger {
+    border-left-color: #DC2626;
+    background: #FEF2F2;
+  }
+  .highlight.success {
+    border-left-color: var(--step-done);
+    background: #F0FDF4;
+  }
+  .highlight svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* Schools accordion */
+  .schools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .school-card {
+    border: 1.5px solid #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .school-trigger {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: 13px 16px;
+    background: none; border: none; cursor: pointer;
+    font-size: 13.5px; font-weight: 600; text-align: left;
+    color: var(--text-primary);
+    gap: 8px;
+    transition: background var(--transition);
+  }
+  .school-trigger:hover { background: #F8FAFC; }
+  .school-trigger .school-abbr {
+    background: var(--unad-blue); color: #fff;
+    font-size: 10px; font-weight: 700; border-radius: 6px;
+    padding: 2px 7px; flex-shrink: 0;
+  }
+  .school-trigger .chevron {
+    flex-shrink: 0; transition: transform var(--transition);
+    color: var(--text-secondary);
+  }
+  .school-trigger.open .chevron { transform: rotate(180deg); }
+  .school-body {
+    display: none;
+    padding: 12px 16px 14px;
+    background: #F8FAFC;
+    border-top: 1.5px solid #E2E8F0;
+    font-size: 13.5px; line-height: 1.7; color: var(--text-secondary);
+  }
+  .school-body.open { display: block; }
+  .contact-row { display: flex; align-items: center; gap: 7px; margin: 3px 0; }
+  .contact-row svg { flex-shrink: 0; color: var(--unad-blue); }
+  .contact-row a { color: var(--unad-blue); text-decoration: none; font-weight: 500; }
+  .contact-row a:hover { text-decoration: underline; }
+
+  /* Checklist */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14.5px; line-height: 1.55;
+  }
+  .checklist li::before {
+    content: '';
+    width: 20px; height: 20px; border-radius: 6px;
+    background: var(--unad-light);
+    border: 2px solid var(--unad-blue);
+    flex-shrink: 0; margin-top: 1px;
+    display: inline-flex;
+  }
+  .checklist li.checked::before {
+    background: var(--step-done);
+    border-color: var(--step-done);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath d='M5 10l4 4 6-6'/%3E%3C/svg%3E");
+    background-size: 14px; background-repeat: no-repeat; background-position: center;
+  }
+
+  /* CC copy button */
+  .copy-row {
+    display: flex; align-items: center; gap: 8px;
+    background: #F1F5F9;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 9px 14px;
+    margin: 10px 0;
+  }
+  .copy-row span { font-size: 13.5px; color: var(--text-primary); flex: 1; font-family: monospace; }
+  .copy-btn {
+    background: var(--unad-blue); color: #fff;
+    border: none; border-radius: 7px;
+    padding: 5px 11px; font-size: 12px; font-weight: 600;
+    cursor: pointer; flex-shrink: 0;
+    transition: background var(--transition);
+  }
+  .copy-btn:hover { background: #0050c8; }
+
+  /* Link button */
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--unad-blue); color: #fff;
+    text-decoration: none;
+    border-radius: 9px;
+    padding: 11px 20px;
+    font-size: 14px; font-weight: 600;
+    transition: background var(--transition), transform var(--transition);
+    margin-top: 6px;
+  }
+  .link-btn:hover { background: #0050c8; transform: translateY(-1px); }
+
+  /* Navigation buttons */
+  .nav-btns {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 28px; gap: 12px; flex-wrap: wrap;
+  }
+  .btn {
+    padding: 11px 24px; border-radius: 9px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    border: none; transition: background var(--transition), transform var(--transition), opacity var(--transition);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--unad-blue); color: #fff; }
+  .btn-primary:hover { background: #0050c8; }
+  .btn-secondary { background: #E2E8F0; color: var(--text-primary); }
+  .btn-secondary:hover { background: #CBD5E1; }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+  /* Final summary */
+  .summary-flow {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 18px 0;
+  }
+  .summary-step {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 10px 0;
+    position: relative;
+  }
+  .summary-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 17px; top: 46px;
+    width: 2px; height: calc(100% - 12px);
+    background: #E2E8F0;
+  }
+  .s-num {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--unad-blue); color: #fff;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; z-index: 1;
+  }
+  .s-body { font-size: 14px; line-height: 1.6; color: var(--text-secondary); padding-top: 6px; }
+  .s-body strong { color: var(--text-primary); }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    .card { padding: 20px 16px; }
+    .card h2 { font-size: 17px; }
+    .stepper { gap: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+    UNAD – Zona Amazonía Orinoquía – UDR Cumaral
+  </div>
+  <h1>Solicitud de Créditos Adicionales</h1>
+  <p>Guía paso a paso para realizar tu solicitud correctamente</p>
+</header>
+
+<div class="container">
+
+  <!-- STEPPER -->
+  <div class="stepper" id="stepper"><div class="step-item done" role="button" aria-label="Ir al paso 1"><div class="step-line-wrap"><div class="step-circle done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div class="step-connector done"></div></div><div class="step-label">Formato FUS</div></div><div class="step-item active" role="button" aria-label="Ir al paso 2"><div class="step-line-wrap"><div class="step-connector"></div><div class="step-circle active">2</div><div class="step-connector"></div></div><div class="step-label">Enviar correo</div></div><div class="step-item" role="button" aria-label="Ir al paso 3"><div class="step-line-wrap"><div class="step-connector"></div><div class="step-circle">3</div><div class="step-connector"></div></div><div class="step-label">Esperar firma</div></div><div class="step-item" role="button" aria-label="Ir al paso 4"><div class="step-line-wrap"><div class="step-connector"></div><div class="step-circle">4</div></div><div class="step-label">Pago</div></div></div>
+
+  <!-- ═══════════════ PASO 1 ═══════════════ -->
+  <div class="card" id="card-1">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#003087" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+      <div>
+        <div class="card-step-tag">Paso 1 de 4</div>
+        <h2>Descarga y diligencia el Formato FUS</h2>
+      </div>
+    </div>
+
+    <p>El primer paso es obtener el <strong>Formato Único de Solicitudes (FUS)</strong> oficial de la UNAD y completarlo correctamente.</p>
+
+    <hr class="divider">
+
+    <a class="link-btn" href="https://academia.unad.edu.co/pregrado-posgrado/atencion/formato-unico-de-solicitudes" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Descargar Formato FUS
+    </a>
+
+    <hr class="divider">
+
+    <p style="font-weight:600; margin-bottom:8px;">¿Cómo diligenciar el formato?</p>
+    <ul class="checklist">
+      <li class="checked">Ingresa al enlace y descarga el formato oficial.</li>
+      <li class="checked">En la columna de <strong>Novedades</strong>, marca con una <strong>"X"</strong> el mínimo y máximo de créditos a solicitar.</li>
+      <li class="checked">Completa todos los campos de identificación del estudiante.</li>
+      <li class="checked">Firma el formato (puede ser firma digital o manuscrita escaneada).</li>
+    </ul>
+
+    <div class="highlight warning">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      <span><strong>Importante:</strong> El formato debe enviarse en formato <strong>PDF</strong> y debe estar <strong>firmado por el estudiante</strong>. No se aceptan otros formatos de archivo.</span>
+    </div>
+
+    <div class="nav-btns">
+      <span></span>
+      <button class="btn btn-primary" onclick="goTo(2)">
+        Siguiente
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PASO 2 ═══════════════ -->
+  <div class="card active" id="card-2">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#003087" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+      </div>
+      <div>
+        <div class="card-step-tag">Paso 2 de 4</div>
+        <h2>Envía el formato a tu Escuela</h2>
+      </div>
+    </div>
+
+    <p>Envía el PDF firmado al correo de la <strong>Escuela</strong> que corresponde al programa en el que estás inscrito. Haz clic en tu escuela para ver los datos de contacto.</p>
+
+    <hr class="divider">
+
+    <div class="schools-grid" id="schools-grid"><div class="school-card"><button class="school-trigger" aria-expanded="false">
+      <span class="school-abbr">ECISA</span>
+      <span style="flex:1">Ciencias de la Salud</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button><div class="school-body" id="school-body-0">
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">Dra. Marisol Villalobos</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="mailto:ecisa.zao@unad.edu.co">ecisa.zao@unad.edu.co</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Teams: <strong>marisol.villalobos</strong></span>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"></path></svg>
+        <span>Extensión <strong>8410</strong></span>
+      </div>
+    </div></div><div class="school-card"><button class="school-trigger" aria-expanded="false">
+      <span class="school-abbr">ECBTI</span>
+      <span style="flex:1">Ciencias Básicas, Tecnología e Ingeniería</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button><div class="school-body" id="school-body-1">
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">Ing. Juan Alejandro Chica García</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="mailto:ecbti.zao@unad.edu.co">ecbti.zao@unad.edu.co</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Teams: <strong>juan.chica</strong></span>
+      </div>
+      
+    </div></div><div class="school-card"><button class="school-trigger" aria-expanded="false">
+      <span class="school-abbr">ECJP</span>
+      <span style="flex:1">Ciencias Jurídicas y Políticas</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button><div class="school-body" id="school-body-2">
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">Dr. Saúl Eduardo Rojas Gutiérrez</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="mailto:ecjp.zao@unad.edu.co">ecjp.zao@unad.edu.co</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Teams: <strong>saul.rojas</strong></span>
+      </div>
+      
+    </div></div><div class="school-card"><button class="school-trigger" aria-expanded="false">
+      <span class="school-abbr">ECAPMA</span>
+      <span style="flex:1">Ciencias Agrícolas, Pecuarias y del Medio Ambiente</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button><div class="school-body" id="school-body-3">
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">Ing. Ángela Patricia Álvarez R.</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="mailto:ecapma.zao@unad.edu.co">ecapma.zao@unad.edu.co</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Teams: <strong>angela.alvarez</strong></span>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"></path></svg>
+        <span>Extensión <strong>8423</strong></span>
+      </div>
+    </div></div><div class="school-card"><button class="school-trigger" aria-expanded="false">
+      <span class="school-abbr">ECACEN</span>
+      <span style="flex:1">Ciencias Administrativas, Contables, Económicas y de Negocios</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button><div class="school-body" id="school-body-4">
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">Dra. María Crisalia Gallo Araque</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="mailto:ecacen.zao@unad.edu.co">ecacen.zao@unad.edu.co</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Teams: <strong>maria.gallo</strong></span>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"></path></svg>
+        <span>Extensión <strong>8405</strong></span>
+      </div>
+    </div></div><div class="school-card"><button class="school-trigger" aria-expanded="false">
+      <span class="school-abbr">ECEDU</span>
+      <span style="flex:1">Ciencias de la Educación</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button><div class="school-body" id="school-body-5">
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">Dr. Elkin Eccehomo Delgado Delgado</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="mailto:ecedu.zao@unad.edu.co">ecedu.zao@unad.edu.co</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Teams: <strong>elkin.delgado</strong></span>
+      </div>
+      
+    </div></div><div class="school-card"><button class="school-trigger" aria-expanded="false">
+      <span class="school-abbr">ECSAH</span>
+      <span style="flex:1">Ciencias Sociales, Artes y Humanidades</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button><div class="school-body" id="school-body-6">
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">Dra. Norma Constanza Molina</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        <a href="mailto:ecsah.zao@unad.edu.co">ecsah.zao@unad.edu.co</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Teams: <strong>norma.molina</strong></span>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"></path></svg>
+        <span>Extensión <strong>8407</strong></span>
+      </div>
+    </div></div></div>
+
+    <hr class="divider">
+
+    <p style="font-weight:600; margin-bottom:6px;">¿A quién envías copia?</p>
+    <p style="font-size:14px; margin-bottom:8px; color:var(--text-secondary);">Además del correo de tu escuela, debes enviar copia (CC) a:</p>
+    <div class="copy-row">
+      <span id="cc-email">ryc.cumaral@unad.edu.co</span>
+      <button class="copy-btn" onclick="copyEmail()">Copiar</button>
+    </div>
+
+    <div class="highlight">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#003087" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      <span>Recuerda adjuntar el <strong>FUS en PDF firmado</strong> al correo. El asunto sugerido puede ser: <em>"Solicitud Créditos Adicionales – [Tu Nombre] – [Programa]"</em>.</span>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Anterior
+      </button>
+      <button class="btn btn-primary" onclick="goTo(3)">
+        Siguiente
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PASO 3 ═══════════════ -->
+  <div class="card" id="card-3">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#003087" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <div>
+        <div class="card-step-tag">Paso 3 de 4</div>
+        <h2>Espera la respuesta de la Escuela</h2>
+      </div>
+    </div>
+
+    <p>Una vez enviado el correo, debes esperar a que la Escuela procese tu solicitud y te devuelva el <strong>formato firmado por el líder de escuela</strong>.</p>
+
+    <hr class="divider">
+
+    <div class="highlight success">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <span>Cuando recibas el formato con el <strong>visto bueno y firma</strong> del líder de escuela, tu solicitud está aprobada y puedes continuar al siguiente paso.</span>
+    </div>
+
+    <p style="margin-top:16px; font-weight:600;">¿Cuánto tiempo puede tardar?</p>
+    <p style="font-size:14px; margin-top:6px; color:var(--text-secondary);">Los tiempos de respuesta varían según la escuela y la carga académica administrativa del momento. Si no recibes respuesta en un tiempo razonable, puedes hacer seguimiento por Teams (ver Paso 2).</p>
+
+    <div class="highlight warning">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      <span>Conserva el correo con el <strong>formato firmado por la escuela</strong> como comprobante de tu solicitud aprobada.</span>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(2)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Anterior
+      </button>
+      <button class="btn btn-primary" onclick="goTo(4)">
+        Siguiente
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PASO 4 ═══════════════ -->
+  <div class="card" id="card-4">
+    <div class="card-header">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#003087" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line>
+        </svg>
+      </div>
+      <div>
+        <div class="card-step-tag">Paso 4 de 4</div>
+        <h2>Pago del Crédito Adicional</h2>
+      </div>
+    </div>
+
+    <p>Una vez aprobada la solicitud, recibirás (o podrás solicitar) el <strong>recibo de pago</strong> para cubrir el crédito adicional.</p>
+
+    <hr class="divider">
+
+    <p style="font-weight:600; margin-bottom:10px;">¿Cuándo puedo solicitar el recibo?</p>
+    <div class="highlight success">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span>Puedes solicitar el recibo para pagar el crédito adicional <strong>durante el periodo académico</strong> o <strong>en cualquier momento de tu estadía académica</strong>
+ al correo de 
+<strong> ryc.cumaral@unad.edu.co. </strong></span>
+    </div>
+
+    <div class="highlight danger">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      <div>
+        <strong>¡Atención!</strong> Si el crédito adicional <strong>no se paga</strong>, quedará registrado como una <strong>deuda</strong> al momento de iniciar el <strong>proceso de grado</strong>, lo que puede retrasar o impedir la graduación.
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <p style="font-weight:600; margin-bottom:12px;">Resumen del proceso completo</p>
+    <div class="summary-flow">
+      <div class="summary-step">
+        <div class="s-num">1</div>
+        <div class="s-body"><strong>Descargar y diligenciar</strong> el formato FUS marcando mín./máx. de créditos con "X". Firmarlo y exportarlo en PDF.</div>
+      </div>
+      <div class="summary-step">
+        <div class="s-num">2</div>
+        <div class="s-body"><strong>Enviar por correo</strong> al líder de tu escuela, con copia a <em>ryc.cumaral@unad.edu.co</em>.</div>
+      </div>
+      <div class="summary-step">
+        <div class="s-num">3</div>
+        <div class="s-body"><strong>Esperar respuesta</strong> con el formato firmado por la escuela como señal de aprobación.</div>
+      </div>
+      <div class="summary-step">
+        <div class="s-num">4</div>
+        <div class="s-body"><strong>Solicitar y pagar</strong> el recibo del crédito adicional durante el periodo o antes de grado. Un crédito sin pagar genera deuda al graduar.</div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(3)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Anterior
+      </button>
+      <button class="btn btn-primary" onclick="goTo(1)" style="background:#16A34A;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        Volver al inicio
+      </button>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const STEPS = [
+  { label: 'Formato FUS' },
+  { label: 'Enviar correo' },
+  { label: 'Esperar firma' },
+  { label: 'Pago' },
+];
+
+const SCHOOLS = [
+  {
+    abbr: 'ECISA',
+    name: 'Ciencias de la Salud',
+    leader: 'Dra. Marisol Villalobos',
+    email: 'ecisa.zao@unad.edu.co',
+    teams: 'marisol.villalobos',
+    ext: '8410',
+  },
+  {
+    abbr: 'ECBTI',
+    name: 'Ciencias Básicas, Tecnología e Ingeniería',
+    leader: 'Ing. Juan Alejandro Chica García',
+    email: 'ecbti.zao@unad.edu.co',
+    teams: 'juan.chica',
+    ext: '',
+  },
+  {
+    abbr: 'ECJP',
+    name: 'Ciencias Jurídicas y Políticas',
+    leader: 'Dr. Saúl Eduardo Rojas Gutiérrez',
+    email: 'ecjp.zao@unad.edu.co',
+    teams: 'saul.rojas',
+    ext: '',
+  },
+  {
+    abbr: 'ECAPMA',
+    name: 'Ciencias Agrícolas, Pecuarias y del Medio Ambiente',
+    leader: 'Ing. Ángela Patricia Álvarez R.',
+    email: 'ecapma.zao@unad.edu.co',
+    teams: 'angela.alvarez',
+    ext: '8423',
+  },
+  {
+    abbr: 'ECACEN',
+    name: 'Ciencias Administrativas, Contables, Económicas y de Negocios',
+    leader: 'Dra. María Crisalia Gallo Araque',
+    email: 'ecacen.zao@unad.edu.co',
+    teams: 'maria.gallo',
+    ext: '8405',
+  },
+  {
+    abbr: 'ECEDU',
+    name: 'Ciencias de la Educación',
+    leader: 'Dr. Elkin Eccehomo Delgado Delgado',
+    email: 'ecedu.zao@unad.edu.co',
+    teams: 'elkin.delgado',
+    ext: '',
+  },
+  {
+    abbr: 'ECSAH',
+    name: 'Ciencias Sociales, Artes y Humanidades',
+    leader: 'Dra. Norma Constanza Molina',
+    email: 'ecsah.zao@unad.edu.co',
+    teams: 'norma.molina',
+    ext: '8407',
+  },
+];
+
+let current = 1;
+
+// ── BUILD STEPPER ─────────────────────────────────────────────────────────
+function buildStepper() {
+  const wrap = document.getElementById('stepper');
+  wrap.innerHTML = '';
+  STEPS.forEach((s, i) => {
+    const n = i + 1;
+    const isDone   = n < current;
+    const isActive = n === current;
+
+    const item = document.createElement('div');
+    item.className = 'step-item' + (isDone ? ' done' : isActive ? ' active' : '');
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', 'Ir al paso ' + n);
+    item.onclick = () => goTo(n);
+
+    // connector before
+    const lineWrap = document.createElement('div');
+    lineWrap.className = 'step-line-wrap';
+
+    if (i > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'step-connector' + (isDone ? ' done' : '');
+      lineWrap.appendChild(conn);
+    }
+
+    const circle = document.createElement('div');
+    circle.className = 'step-circle' + (isDone ? ' done' : isActive ? ' active' : '');
+    if (isDone) {
+      circle.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+    } else {
+      circle.textContent = n;
+    }
+    lineWrap.appendChild(circle);
+
+    if (i < STEPS.length - 1) {
+      const conn2 = document.createElement('div');
+      conn2.className = 'step-connector' + (isDone ? ' done' : '');
+      lineWrap.appendChild(conn2);
+    }
+
+    const label = document.createElement('div');
+    label.className = 'step-label';
+    label.textContent = s.label;
+
+    item.appendChild(lineWrap);
+    item.appendChild(label);
+    wrap.appendChild(item);
+  });
+}
+
+// ── BUILD SCHOOLS ─────────────────────────────────────────────────────────
+function buildSchools() {
+  const grid = document.getElementById('schools-grid');
+  grid.innerHTML = '';
+  SCHOOLS.forEach((sc, i) => {
+    const card = document.createElement('div');
+    card.className = 'school-card';
+
+    const btn = document.createElement('button');
+    btn.className = 'school-trigger';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = `
+      <span class="school-abbr">${sc.abbr}</span>
+      <span style="flex:1">${sc.name}</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    `;
+
+    const body = document.createElement('div');
+    body.className = 'school-body';
+    body.id = `school-body-${i}`;
+    body.innerHTML = `
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:6px;">${sc.leader}</div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <a href="mailto:${sc.email}">${sc.email}</a>
+      </div>
+      <div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Teams: <strong>${sc.teams}</strong></span>
+      </div>
+      ${sc.ext ? `<div class="contact-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+        <span>Extensión <strong>${sc.ext}</strong></span>
+      </div>` : ''}
+    `;
+
+    btn.onclick = () => {
+      const open = body.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+    };
+
+    card.appendChild(btn);
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────
+function goTo(n) {
+  document.getElementById('card-' + current).classList.remove('active');
+  current = n;
+  document.getElementById('card-' + current).classList.add('active');
+  buildStepper();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── COPY EMAIL ────────────────────────────────────────────────────────────
+function copyEmail() {
+  const email = document.getElementById('cc-email').textContent;
+  navigator.clipboard.writeText(email).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copiado';
+    btn.style.background = '#16A34A';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+    }, 2000);
+  });
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+buildStepper();
+buildSchools();
+</script>
+
+
+</body></html>
