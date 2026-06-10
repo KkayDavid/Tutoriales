@@ -856,6 +856,15 @@ function copyEmail() {
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────
+// Siempre arrancar en paso 1 al cargar/recargar la página
+current = 1;
+// Limpiar cualquier hash en la URL para evitar que el navegador restaure posición
+if (window.location.hash) {
+  history.replaceState(null, '', window.location.pathname + window.location.search);
+}
+// Forzar scroll al tope
+window.scrollTo(0, 0);
+// ── INIT ──────────────────────────────────────────────────────────────────
 buildStepper();
 buildSchools();
 </script>
